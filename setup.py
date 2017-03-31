@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name = 'snekbol',
     packages = ['snekbol'],
-    version = '0.1',
+    version = '0.1.1',
     description = 'A python based library for reading and writing SBOL 2 files',
     author = 'Thomas Craig',
     author_email = 'thomas.craig@tjc.me.uk',

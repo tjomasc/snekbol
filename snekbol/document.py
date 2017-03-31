@@ -55,13 +55,13 @@ class Document(object):
         """
         Add a namespace to the document
         """
-        pass
+        self._namespaces[prefix] = namespace
 
     def get_namespaces(self):
         """
         Get all namespaces in the document (inc default)
         """
-        pass
+        return XML_NS + self._namespaces
 
     def _to_uri_from_namespace(self, value):
         """
@@ -228,6 +228,20 @@ class Document(object):
         Recursivly search document for URI
         """
         pass
+
+    def clear_document(self):
+        """
+        Clears ALL items from document, reseting it to clean
+        """
+        self._components.clear()
+        self._sequences.clear()
+        self._namespaces.clear()
+        self._models.clear()
+        self._modules.clear()
+        self._collections.clear()
+        self._annotations.clear()
+        self._functional_component_store.clear()
+        self._collection_store.clear()
 
     def _get_elements(self, graph, element_type):
         return graph.triples((None, RDF.type, element_type))
@@ -488,6 +502,8 @@ class Document(object):
         """
         Read in an SBOL file, replacing current document contents
         """
+        self.clear_document()
+
         g = Graph()
         g.parse(f, format='xml')
 
