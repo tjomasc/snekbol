@@ -10,6 +10,11 @@ setup(
     author_email = 'thomas.craig@tjc.me.uk',
     url = 'https://github.com/tjomasc/snekbol',
     keywords = ['SBOL', 'Synthetic Biology'],
+    install_requires = [
+        'lxml==3.7.3',
+        'rdflib==4.2.2',
+        'validators==0.11.2',
+    ],
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Science/Research',
