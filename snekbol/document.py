@@ -1,3 +1,4 @@
+from operator import attrgetter
 from urllib.parse import urljoin
 from pprint import pprint
 from lxml import etree as ET
@@ -228,6 +229,19 @@ class Document(object):
         Recursivly search document for URI
         """
         pass
+
+    def get_components(self, uri):
+        """
+        Get components from a component definition in order
+        """
+        try:
+            component_definition = self._components[uri]
+        except KeyError:
+            return False
+
+        sorted_sequences = sorted(component_definition.sequence_annotations,
+                                  key=attrgetter('first_location'))
+        return [c.component for c in sorted_sequences]
 
     def clear_document(self):
         """

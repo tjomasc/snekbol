@@ -1,3 +1,4 @@
+from operator import attrgetter
 from lxml import etree as ET
 
 from rdflib import Namespace, URIRef, Literal, RDF
@@ -5,6 +6,7 @@ from rdflib import Namespace, URIRef, Literal, RDF
 from .identified import Identified
 from .types import *
 from .namespaces import SBOL, NS
+from .location import Range, Cut, GenericLocation
 
 class Sequence(Identified):
     """
@@ -61,6 +63,22 @@ class SequenceAnnotation(Identified):
         self.locations = locations
         self.component = component
         self.roles = roles
+
+    @property
+    def first_location(self):
+        lowest_value = 0
+        for i, l in enumerate(self.locations):
+            if isinstance(l, Range):
+                if i == 0:
+                    lowest_value = int(l.start)
+                elif int(l.start) < lowest_value:
+                    lowest_value = int(l.start)
+            elif isinstance(l, Cut):
+                if i == 0:
+                    lowest_value = int(l.at)
+                elif int(l.at) < lowest_value:
+                    lowest_value = int(l.at)
+        return lowest_value
 
     def _as_rdf_xml(self, ns):
         elements = super()._as_rdf_xml(ns)
