@@ -11,7 +11,7 @@ setup(
     url = 'https://github.com/tjomasc/snekbol',
     keywords = ['SBOL', 'Synthetic Biology'],
     install_requires = [
-        'lxml==3.7.3',
+        'lxml==4.6.3',
         'rdflib==4.2.2',
         'validators==0.11.2',
     ],
